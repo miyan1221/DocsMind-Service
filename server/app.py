@@ -199,7 +199,10 @@ def upload_file():
     if open_ai_key:
         os.environ["OPENAI_API_KEY"] = ""
 
-    return jsonify(token_usage), 200
+#     return jsonify(token_usage), 200
+    response = jsonify(token_usage)
+    response.headers.add('Access-Control-Allow-Origin', 'https://docs.sundayplus.xyz,http://docs.sundayplus.xyz')
+    return response, 200
 
 
 @app.route("/api/index-list", methods=["GET"])
