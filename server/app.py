@@ -201,10 +201,19 @@ def upload_file():
 
 #     return jsonify(token_usage), 200
     response = jsonify(token_usage)
-    response.headers.add('Access-Control-Allow-Origin', 'https://docs.sundayplus.xyz,http://docs.sundayplus.xyz')
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-    response.headers['Access-Control-Allow-Credentials'] = 'true'
+    @app.after_request
+    def add_cors_headers(response: Response):
+        response.headers['Access-Control-Allow-Origin'] = 'https://docs.sundayplus.xyz,http://docs.sundayplus.xyz'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+        response.headers['Access-Control-Allow-Credentials'] = 'true'
+        return response
+
     return response, 200
+#     response.headers.add('Access-Control-Allow-Origin', 'https://docs.sundayplus.xyz,http://docs.sundayplus.xyz')
+#     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+#     response.headers['Access-Control-Allow-Credentials'] = 'true'
+#     return response, 200
 
 
 @app.route("/api/index-list", methods=["GET"])
