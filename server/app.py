@@ -202,7 +202,8 @@ def upload_file():
 #     return jsonify(token_usage), 200
     response = jsonify(token_usage)
     response.headers.add('Access-Control-Allow-Origin', 'https://docs.sundayplus.xyz,http://docs.sundayplus.xyz')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response, 200
 
 
